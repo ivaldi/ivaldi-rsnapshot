@@ -1,0 +1,24 @@
+{
+  "name": "ivaldi-rsnapshot",
+  "version": "0.0.1",
+  "author": "Frank Groeneveld, Ivaldi",
+  "license": "BSD",
+  "summary": "Rsnapshot master and node configuration with auto generated and distributed ssh keys.",
+  "source": "https://github.com/ivaldi/ivaldi-rsnapshot",
+  "project_page": "https://forge.puppetlabs.com/ivaldi/rsnapshot",
+  "issues_url": "https://github.com/ivaldi/ivaldi-rsnapshot/issues",
+  "tags": ["rsnapshot", "ssh", "keys", "backups"],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [ "6", "7" ],
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "12.04", "10.04" ],
+    }
+  ],
+  "dependencies": [
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 3.2.0" },
+  ]
+}
