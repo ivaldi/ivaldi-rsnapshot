@@ -1,4 +1,4 @@
-define rsnapshot::master::node_definition($to_location, $sshdsakey, $sshrsakey, $sshecdsakey) {
+define rsnapshot::master::node_definition($to_location, $sshdsakey, $sshrsakey, $ipaddress) {
   file_line { "$name backups":
     ensure => present,
     path   => '/etc/rsnapshot.conf',
@@ -8,11 +8,11 @@ define rsnapshot::master::node_definition($to_location, $sshdsakey, $sshrsakey, 
   sshkey { "${name}_dsa":
     type         => 'dsa',
     key          => $sshdsakey,
-    host_aliases => $name,
+    host_aliases => [$name, $ipaddress],
   }
   sshkey { "${name}_rsa":
     type         => 'rsa',
     key          => $sshrsakey,
-    host_aliases => $name,
+    host_aliases => [$name, $ipaddress],
   }
 }
