@@ -5,7 +5,7 @@ The rsnapshot module allows you to setup an rsnapshot backup master and rsnapsho
 
 ##Setup
 ###Installing a rsnapshot master server
-To setup a rsnapshot master server, add the following lines to its puppet configuration.
+To setup a rsnapshot master server with location name `dc1`, add the following lines to its puppet configuration.
 
     class { 'rsnapshot::master':
       location_name => 'dc1',
@@ -20,4 +20,4 @@ For every server that needs to be backed up to the previously configures rsnapsh
       to_location => 'dc1',
     }
 
-This will add the ssh public key of the rsnapshot master with `location_name` 'dc1' to the root users `authorized_keys` file. On the rsnapshot master, this will add a line to `/etc/rsnapshot.conf` to backup this node.
+This will add the ssh public key of the rsnapshot master with `location_name` `dc1` to the `authorized_keys` file of root, allowing rsnapshot to login from the master server. On the rsnapshot master, this will add a line to `/etc/rsnapshot.conf` to backup this node.
