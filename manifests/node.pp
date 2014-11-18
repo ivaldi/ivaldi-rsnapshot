@@ -1,6 +1,7 @@
-class rsnapshot::node($to_location) {
+class rsnapshot::node($to_location, $ensure=present) {
 
   @@rsnapshot::master::node_definition { $fqdn:
+    ensure      => $ensure,
     to_location => $to_location,
     ipaddress   => $::ipaddress,
     sshdsakey   => $::sshdsakey,
