@@ -5,10 +5,16 @@ define rsnapshot::master::node_definition(
     $sshrsakey,
     $ipaddress) {
 
+  file_line { "$name old name based backups":
+    ensure => 'absent',
+    path   => '/etc/rsnapshot.conf',
+    line   => "backup\troot@$name:/\t$name/",
+  }
+
   file_line { "$name backups":
     ensure => $ensure,
     path   => '/etc/rsnapshot.conf',
-    line   => "backup\troot@$name:/\t$name/",
+    line   => "backup\troot@$ipaddress:/\t$name/",
   }
 
   sshkey { "${name}_dsa":
