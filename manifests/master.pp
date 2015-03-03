@@ -14,6 +14,6 @@ class rsnapshot::master(
 
   @@rsnapshot::node::master_definition { $::fqdn:
     location_name => $location_name,
-    sshpubkey     => $::sshpubkey_root,
+    sshpubkey     => $::sshpubkey_rsnapshot,
   }
 }

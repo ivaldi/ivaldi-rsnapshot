@@ -5,14 +5,12 @@ Etc.passwd do |pw|
   homedir = pw.dir
   key = false
 
-  if File.exists?("#{homedir}/.ssh/id_rsa.pub")
-    key = IO.read("#{homedir}/.ssh/id_rsa.pub")
-  elsif File.exists?("#{homedir}/.ssh/id_dsa.pub")
-    key = IO.read("#{homedir}/.ssh/id_dsa.pub")
+  if File.exists?("#{homedir}/.ssh/rsnapshot.rsa.pub")
+    key = IO.read("#{homedir}/.ssh/rsnapshot.rsa.pub")
   end
 
   if key
-    Facter.add("sshpubkey_#{user}") do
+    Facter.add("sshpubkey_rsnapshot") do
       setcode do
         key
       end

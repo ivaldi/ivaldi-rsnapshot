@@ -13,9 +13,9 @@ class rsnapshot::master::config inherits rsnapshot::master {
     line    => "snapshot_root\t/var/backups/rsnapshot/",
   }
 
-  exec { 'generate private ssh key':
-    command  => "/usr/bin/ssh-keygen -f /root/.ssh/id_rsa -N '' -C 'root@${::fqdn}'",
-    creates  => '/root/.ssh/id_rsa',
+  exec { 'generate rsnasphot private ssh key':
+    command  => "/usr/bin/ssh-keygen -t rsa -b 2048 -f /root/.ssh/rsnapshot.rsa -N '' -C 'root@${::fqdn}'",
+    creates  => '/root/.ssh/rsnapshot.rsa',
   }
 
   file_line { 'cmd_ssh':
