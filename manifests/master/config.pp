@@ -1,9 +1,7 @@
-class rsnapshot::master::config {
-
+class rsnapshot::master::config inherits rsnapshot::master {
   File_line {
     ensure  => present,
     path    => '/etc/rsnapshot.conf',
-    require => Package['rsnapshot'],
   }
 
   file_line { 'snapshot_root':

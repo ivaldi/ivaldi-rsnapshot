@@ -1,15 +1,17 @@
-class rsnapshot::master($location_name) {
+class rsnapshot::master(
+  $location_name,
+) inherits rsnapshot::params {
 
-  package { 'rsnapshot': }
-
+  Class["${module_name}::master::install"] ->
+  Class["${module_name}::master::config"]
+  contain "${module_name}::master::install"
+  contain "${module_name}::master::config"
 
   Rsnapshot::Master::Node_definition <<| to_location == $location_name |>> {
     require => Class['Rsnapshot::Master::Config']
   }
 
-  include rsnapshot::master::config
-
-  @@rsnapshot::node::master_definition { $fqdn:
+  @@rsnapshot::node::master_definition { $::fqdn:
     location_name => $location_name,
     sshpubkey     => $::sshpubkey_root,
   }
