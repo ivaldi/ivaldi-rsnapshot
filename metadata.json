@@ -1,6 +1,6 @@
 {
   "name": "ivaldi-rsnapshot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Frank Groeneveld, Ivaldi",
   "license": "BSD",
   "summary": "Rsnapshot master and node configuration with auto generated and distributed ssh keys.",
@@ -15,7 +15,7 @@
     },
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "12.04", "10.04" ]
+      "operatingsystemrelease": [ "10.04", "12.04", "14.04" ]
     }
   ],
   "dependencies": [

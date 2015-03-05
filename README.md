@@ -9,6 +9,7 @@ To setup a rsnapshot master server with location name `dc1`, add the following l
 
     class { 'rsnapshot::master':
       location_name => 'dc1',
+	  exclusions    => ['var/spool'],
     }
 
 This will install rsnapshot, generate a ssh key pair and setup cronjobs to run rsnapshot as root.
