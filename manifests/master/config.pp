@@ -4,45 +4,13 @@ class rsnapshot::master::config inherits rsnapshot::master {
     path    => '/etc/rsnapshot.conf',
   }
 
+  $builtin_exclusions = ['dev', 'proc', 'sys', 'run', 'tmp']
+  rsnapshot::master::exclusion { [$builtin_exclusions]: }
+  rsnapshot::master::exclusion { [$exclusions]: }
+
   file_line { 'snapshot_root':
     match   => "^snapshot_root\t",
     line    => "snapshot_root\t/var/backups/rsnapshot/",
-  }
-
-  file_line { 'exclude_mysql':
-    line    => "exclude\tvar/lib/mysql",
-  }
-
-  file_line { 'exclude_postgresql':
-    line    => "exclude\tvar/lib/postgresql",
-  }
-
-  file_line { 'exclude_tmp':
-    line    => "exclude\ttmp",
-  }
-
-  file_line { 'exclude_spool':
-    line    => "exclude\tvar/spool",
-  }
-
-  file_line { 'exclude_php5_sessions':
-    line    => "exclude\tvar/lib/php5",
-  }
-
-  file_line { 'exclude_jenkins_workspace':
-    line    => "exclude\tvar/lib/jenkins/workspace",
-  }
-
-  file_line { 'exclude_dev':
-    line    => "exclude\tdev",
-  }
-
-  file_line { 'exclude_proc':
-    line    => "exclude\tproc",
-  }
-
-  file_line { 'exclude_sys':
-    line    => "exclude\tsys",
   }
 
   exec { 'generate private ssh key':

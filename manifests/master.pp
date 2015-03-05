@@ -1,5 +1,6 @@
 class rsnapshot::master(
   $location_name,
+  $exclusions = [],
 ) inherits rsnapshot::params {
 
   Class["${module_name}::master::install"] ->
