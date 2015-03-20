@@ -6,10 +6,17 @@ define rsnapshot::master::node_definition(
     $ipaddress,
     $user='root') {
 
+  if $user != 'root' {
+    $extra_args = '+rsync_long_args=--rsync-path="sudo rsync"'
+  } else {
+    $extra_args = ''
+  }
+
   file_line { "$name backups":
     ensure => $ensure,
     path   => '/etc/rsnapshot.conf',
-    line   => "backup\t$user@$ipaddress:/\t$name/",
+    match  => "backup\t.*@$ipaddress:/\t$name/\t?.*",
+    line   => "backup\t$user@$ipaddress:/\t$name/\t$extra_args",
   }
 
   sshkey { "${name}_dsa":
