@@ -15,7 +15,7 @@ define rsnapshot::master::node_definition(
   file_line { "$name backups":
     ensure => $ensure,
     path   => '/etc/rsnapshot.conf',
-    match  => "backup\t.*@$ipaddress:/\t$name/\t?.*",
+    match  => "backup\t.*@$ipaddress:/\t$name/.*",
     line   => "backup\t$user@$ipaddress:/\t$name/\t$extra_args",
   }
 
