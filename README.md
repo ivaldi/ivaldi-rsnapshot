@@ -22,3 +22,12 @@ For every server that needs to be backed up to the previously configures rsnapsh
     }
 
 This will add the ssh public key of the rsnapshot master with `location_name` `dc1` to the `authorized_keys` file of root, allowing rsnapshot to login from the master server. On the rsnapshot master, this will add a line to `/etc/rsnapshot.conf` to backup this node.
+
+Optionally you might want to use a special backup user, this can be done by using the following syntax.
+
+    class { 'rsnapshot::node':
+      to_location => 'dc1',
+	  user        => 'rsnapshot',
+    }
+
+This will create the user rsnapshot on the node, give it permission to run sudo rsync and add the public key of the rsnapshot master with `location_name` `dc1` to the `authorized_keys` file of root, allowing rsnapshot to login from the master server as this new rsnapshot user.
