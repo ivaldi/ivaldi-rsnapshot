@@ -1,4 +1,4 @@
-class rsnapshot::node($to_location, $ensure=present) {
+class rsnapshot::node($to_location, $ensure=present, $user='root') {
 
   @@rsnapshot::master::node_definition { $fqdn:
     ensure      => $ensure,
@@ -6,7 +6,10 @@ class rsnapshot::node($to_location, $ensure=present) {
     ipaddress   => $::ipaddress,
     sshdsakey   => $::sshdsakey,
     sshrsakey   => $::sshrsakey,
+    user        => $user,
   }
 
-  Rsnapshot::Node::Master_definition <<| location_name == $to_location |>>
+  Rsnapshot::Node::Master_definition <<| location_name == $to_location |>> {
+    user => $user,
+  }
 }

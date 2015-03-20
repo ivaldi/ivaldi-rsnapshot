@@ -1,4 +1,4 @@
-define rsnapshot::node::master_definition($location_name, $sshpubkey) {
+define rsnapshot::node::master_definition($location_name, $sshpubkey, $user) {
 
   if ($sshpubkey !~ /^(ssh-...) ([^ ]*)/) {
     err("Can't parse key from root@$name")
@@ -6,11 +6,11 @@ define rsnapshot::node::master_definition($location_name, $sshpubkey) {
   } else {
     $keytype = $1
     $keyvalue = $2
-    ssh_authorized_key { "root@$name":
+    ssh_authorized_key { "$user@$name":
       ensure => present,
       type => $keytype,
       key => $keyvalue,
-      user => 'root',
+      user => $user,
     }
   }
 }

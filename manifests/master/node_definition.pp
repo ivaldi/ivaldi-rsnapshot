@@ -3,18 +3,13 @@ define rsnapshot::master::node_definition(
     $to_location,
     $sshdsakey,
     $sshrsakey,
-    $ipaddress) {
-
-  file_line { "$name old name based backups":
-    ensure => 'absent',
-    path   => '/etc/rsnapshot.conf',
-    line   => "backup\troot@$name:/\t$name/",
-  }
+    $ipaddress,
+    $user='root') {
 
   file_line { "$name backups":
     ensure => $ensure,
     path   => '/etc/rsnapshot.conf',
-    line   => "backup\troot@$ipaddress:/\t$name/",
+    line   => "backup\t$user@$ipaddress:/\t$name/",
   }
 
   sshkey { "${name}_dsa":
