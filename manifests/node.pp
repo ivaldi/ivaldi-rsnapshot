@@ -27,7 +27,7 @@ class rsnapshot::node($to_location, $ensure=present, $user='root') {
     file_line { "$user sudo rsync":
       ensure => $ensure,
       path   => '/etc/sudoers',
-      line   => "$user ALL= NOPASSWD: /usr/bin/rsync --server",
+      line   => "$user ALL= NOPASSWD: /usr/bin/rsync",
     }
 
   } else {
