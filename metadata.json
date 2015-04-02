@@ -1,6 +1,6 @@
 {
   "name": "ivaldi-rsnapshot",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Frank Groeneveld, Ivaldi",
   "license": "BSD",
   "summary": "Rsnapshot master and node configuration with auto generated and distributed ssh keys.",
