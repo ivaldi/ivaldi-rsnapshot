@@ -1,0 +1,3 @@
+<% @backup.each do |value| -%>
+backup	root@<%= @ipaddress %>:<%= value %>	<%= @identifier %><%= value %>
+<% end -%>

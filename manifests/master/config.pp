@@ -1,51 +1,22 @@
 class rsnapshot::master::config inherits rsnapshot::master {
-  File_line {
+  concat { $rsnapshot::params::config_path:
     ensure  => present,
-    path    => '/etc/rsnapshot.conf',
   }
-
-  $builtin_exclusions = ['dev', 'proc', 'sys', 'run', 'tmp']
-  rsnapshot::master::exclusion { [$builtin_exclusions]: }
-  rsnapshot::master::exclusion { [$exclusions]: }
-
-  file_line { 'snapshot_root':
-    match   => "^snapshot_root\t",
-    line    => "snapshot_root\t/var/backups/rsnapshot/",
+  concat::fragment { 'rsnapshot_main':
+    target  => $rsnapshot::params::config_path,
+    content => template('rsnapshot/rsnapshot.conf.erb'),
+    order   => '01',
+  }
+  $all_exclusions = concat($rsnapshot::params::builtin_exclusions, $exclusions)
+  concat::fragment { 'rsnapshot_exclusions':
+    target  => $rsnapshot::params::config_path,
+    content => template('rsnapshot/exclusions.conf.erb'),
+    order   => '10',
   }
 
   exec { 'generate rsnasphot private ssh key':
     command  => "/usr/bin/ssh-keygen -t rsa -b 2048 -f /root/.ssh/rsnapshot.rsa -N '' -C 'root@${::fqdn}'",
     creates  => '/root/.ssh/rsnapshot.rsa',
-  }
-
-  file_line { 'cmd_ssh':
-    match => "cmd_ssh\t",
-    line  => "cmd_ssh\t/usr/bin/ssh",
-  }
-
-  file_line { 'link_dest':
-    match => "link_dest\t",
-    line  => "link_dest\t1",
-  }
-
-  file_line { 'no_localhost_home':
-    match => "backup\t\/home\/\t\tlocalhost\/",
-    line  => "#backup\t/home/\t\tlocalhost/"
-  }
-
-  file_line { 'no_localhost_etc':
-    match => "backup\t\/etc\/\t\tlocalhost\/",
-    line  => "#backup\t/etc/\t\tlocalhost/"
-  }
-
-  file_line { 'no_localhost_usr_local':
-    match => "backup\t\/usr\/local\/\tlocalhost\/",
-    line  => "#backup\t/usr/local/\tlocalhost/"
-  }
-
-  file_line { 'retain_hourly':
-    match => "retain\t\thourly\t",
-    line  => "retain\t\thourly\t4",
   }
 
   cron { 'rsnapshot hourly':
